@@ -9,7 +9,7 @@ import lombok.NoArgsConstructor;
 @Getter
 @NoArgsConstructor
 @Entity
-public class User extends BaseTimeEntity {
+public class GameUser extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -22,7 +22,7 @@ public class User extends BaseTimeEntity {
     private int userType;
 
     @Builder
-    public User(String gameId, UserType userType){
+    public GameUser(String gameId, UserType userType){
         this.gameId = gameId;
         this.userType = userType.getType();
     }

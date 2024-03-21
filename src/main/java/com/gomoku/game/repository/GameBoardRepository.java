@@ -1,4 +1,7 @@
 package com.gomoku.game.repository;
 
-public interface GameBoardRepository {
+import com.gomoku.game.repository.entity.GameBoard;
+import org.springframework.data.jpa.repository.JpaRepository;
+
+public interface GameBoardRepository extends JpaRepository<GameBoard, Long> {
 }
