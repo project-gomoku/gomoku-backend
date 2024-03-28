@@ -38,9 +38,6 @@ public class GameBoard extends BaseTimeEntity {
     @Column(nullable = false)
     private int boardSize;
 
-    @Column(nullable = false)
-    private int[][] board;
-
     @Column
     @ElementCollection(fetch = FetchType.LAZY)
     @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID", referencedColumnName = "GAMEBOARD_ID"))
@@ -56,7 +53,6 @@ public class GameBoard extends BaseTimeEntity {
         this.whiteUserName = whiteUserName;
         this.status = status.getStatus();
         this.boardSize = boardsize;
-        this.board = new int[boardsize][boardsize];
     }
 
 }
