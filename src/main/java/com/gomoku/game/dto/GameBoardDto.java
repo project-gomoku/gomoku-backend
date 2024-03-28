@@ -20,14 +20,15 @@ public class GameBoardDto {
     private List<PlacementSequence> placementSequence;
 
     @Builder
-    public GameBoardDto(GameBoard entity){
-        this.id = entity.getId();
-        this.blackUserId = entity.getBlackUserId();
-        this.whiteUserId = entity.getWhiteUserId();
-        this.blackUserName = entity.getBlackUserName();
-        this.whiteUserName = entity.getWhiteUserName();
-        this.status = entity.getStatus();
-        this.placementSequence = entity.getPlacementSequence();
+    public GameBoardDto(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName, int status,
+                        List<PlacementSequence> placementSequence)
+    {
+        this.blackUserId = blackUserId;
+        this.whiteUserId = whiteUserId;
+        this.blackUserName = blackUserName;
+        this.whiteUserName = whiteUserName;
+        this.status = status;
+        this.placementSequence = placementSequence;
     }
 
     public GameBoard toEntity(){
