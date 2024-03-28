@@ -11,6 +11,7 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -31,6 +32,7 @@ public class GameBoardRepositoryTest {
 
     @Test
     @DisplayName("게임 보드 초기화 테스트")
+    @Transactional
     public void gameBoardInitializeTest(){
         // given
         long blackUserId = 12345;
@@ -38,7 +40,7 @@ public class GameBoardRepositoryTest {
         String blackUserName = "abc";
         String whiteUserName = "def";
         Status status = Status.STARTED;
-        List<PlacementSequence> placementSequences = new ArrayList<>();
+        List<PlacementSequence> placementSequence = new ArrayList<>();
 
         gameBoardRepository.save(GameBoard.builder()
                 .blackUserId(blackUserId)
@@ -46,7 +48,7 @@ public class GameBoardRepositoryTest {
                 .blackUserName(blackUserName)
                 .whiteUserName(whiteUserName)
                 .status(status)
-                .placementSequence(placementSequences)
+                .placementSequence(placementSequence)
                 .build());
 
         // when
