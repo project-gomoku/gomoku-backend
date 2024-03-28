@@ -1,6 +1,6 @@
 package com.gomoku.game.service;
 
-import com.gomoku.game.dto.GameBoardDto;
+import com.gomoku.game.dto.GameBoardInitializeDto;
 import com.gomoku.game.repository.GameBoardRepository;
 import com.gomoku.game.repository.entity.GameBoard;
 import lombok.RequiredArgsConstructor;
@@ -15,7 +15,7 @@ public class GameServiceImpl implements GameService{
 
     @Override
     @Transactional
-    public GameBoard initialize(GameBoardDto gameBoardDto) {
+    public GameBoard initialize(GameBoardInitializeDto gameBoardDto) {
         return gameBoardRepository.save(gameBoardDto.toEntity());
     }
 }
