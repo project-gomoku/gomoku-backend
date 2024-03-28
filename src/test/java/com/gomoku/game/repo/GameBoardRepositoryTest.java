@@ -48,7 +48,6 @@ public class GameBoardRepositoryTest {
                 .blackUserName(blackUserName)
                 .whiteUserName(whiteUserName)
                 .status(status)
-                .placementSequence(placementSequence)
                 .build());
 
         // when
