@@ -7,17 +7,17 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.messaging.handler.annotation.MessageMapping;
 import org.springframework.messaging.handler.annotation.SendTo;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
-@Controller
+@RestController
+@RequestMapping("/api")
 public class GamePlayController {
 
     private final GameService gameService;
 
-    @MessageMapping("/initialize")
-    @SendTo("/play/{id}")
-    public GameBoard initialize(GameBoardDto initializeDto){
+    @PostMapping("play/{id}")
+    public GameBoard initialize(@RequestBody GameBoardDto initializeDto){
         return gameService.initialize(initializeDto);
     }
 

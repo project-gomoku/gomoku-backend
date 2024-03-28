@@ -16,7 +16,7 @@ public class GameBoard extends BaseTimeEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
-    @Column(name = "gameboard_id")
+    @Column(name = "GAMEBOARD_ID")
     private long Id;
 
     @Column(nullable = false)
@@ -36,7 +36,7 @@ public class GameBoard extends BaseTimeEntity {
 
     @Column
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "placement_sequence", joinColumns = @JoinColumn(name="board_id", referencedColumnName = "gameboard_id"))
+    @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID", referencedColumnName = "GAMEBOARD_ID"))
     private List<PlacementSequence> placementSequence;
 
     @Builder
