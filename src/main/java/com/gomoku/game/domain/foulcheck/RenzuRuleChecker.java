@@ -1,4 +1,4 @@
-package com.gomoku.game.service.gameservice.foulcheck;
+package com.gomoku.game.domain.foulcheck;
 
 public interface RenzuRuleChecker extends FoulChecker {
 }

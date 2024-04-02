@@ -40,7 +40,7 @@ public class GameBoard extends BaseTimeEntity {
 
     @Column
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID", referencedColumnName = "GAMEBOARD_ID"))
+    @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID"))
     private List<PlacementSequence> placementSequence = new ArrayList<>();
 
     @Builder

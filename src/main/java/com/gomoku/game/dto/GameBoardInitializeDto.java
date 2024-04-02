@@ -14,15 +14,18 @@ public class GameBoardInitializeDto {
     private String blackUserName;
     private String whiteUserName;
     private int status;
+    private int boardSize;
 
     @Builder
-    public GameBoardInitializeDto(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName, int status)
+    public GameBoardInitializeDto(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName,
+                                  int status, int boardSize)
     {
         this.blackUserId = blackUserId;
         this.whiteUserId = whiteUserId;
         this.blackUserName = blackUserName;
         this.whiteUserName = whiteUserName;
         this.status = status;
+        this.boardSize = boardSize;
     }
 
     public GameBoard toEntity(){
@@ -32,6 +35,7 @@ public class GameBoardInitializeDto {
                 .blackUserName(blackUserName)
                 .whiteUserName(whiteUserName)
                 .status(Status.STARTED)
+                .boardsize(boardSize)
                 .build();
     }
 
