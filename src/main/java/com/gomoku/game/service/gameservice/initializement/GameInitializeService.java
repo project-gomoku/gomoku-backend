@@ -8,6 +8,6 @@ import com.gomoku.game.repository.entity.GameBoard;
 public interface GameInitializeService {
 
     GameBoard initialize(GameBoardInitializeDto gameBoardDto);
-    long place(long id, PlacementDto dto);
+
 
 }

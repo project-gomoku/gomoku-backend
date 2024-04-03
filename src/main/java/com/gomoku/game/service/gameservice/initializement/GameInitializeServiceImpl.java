@@ -26,15 +26,6 @@ public class GameInitializeServiceImpl implements GameInitializeService {
         return gameBoardRepository.save(gameBoardDto.toEntity());
     }
 
-    @Override
-    @Transactional
-    public long place(long id, PlacementDto dto){
-        GameBoard gameBoard = gameBoardRepository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("게임 ID 검색 오류"));
 
-        gameBoard.getPlacementSequence().add(dto.toEntity());
-
-        return id;
-    }
 
 }
