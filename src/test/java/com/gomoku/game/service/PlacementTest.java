@@ -1,12 +1,12 @@
-package com.gomoku.game.repo;
+package com.gomoku.game.service;
 
 import com.gomoku.common.enumeration.Status;
 import com.gomoku.game.dto.PlacementDto;
 import com.gomoku.game.repository.GameBoardRepository;
 import com.gomoku.game.repository.entity.GameBoard;
 import com.gomoku.game.repository.entity.PlacementSequence;
-import com.gomoku.game.service.gameservice.initializement.GameInitializeService;
-import com.gomoku.game.service.gameservice.initializement.GameInitializeServiceImpl;
+import com.gomoku.game.service.gameservice.progress.GameProgressService;
+import com.gomoku.game.service.gameservice.progress.GameProgressServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -54,7 +54,7 @@ public class PlacementTest {
                 .build());
 
         // when
-        GameInitializeService service = new GameInitializeServiceImpl(gameBoardRepository);
+        GameProgressService service = new GameProgressServiceImpl(gameBoardRepository);
         service.place(1,
                 PlacementDto.builder()
                         .color("black")
