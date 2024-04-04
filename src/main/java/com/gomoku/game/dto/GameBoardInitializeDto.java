@@ -2,14 +2,11 @@ package com.gomoku.game.dto;
 
 import com.gomoku.common.enumeration.Status;
 import com.gomoku.game.repository.entity.GameBoard;
-import com.gomoku.game.repository.entity.PlacementSequence;
 import lombok.Builder;
 import lombok.Getter;
 
-import java.util.List;
-
 @Getter
-public class GameBoardDto {
+public class GameBoardInitializeDto {
 
     private long id;
     private long blackUserId;
@@ -17,18 +14,18 @@ public class GameBoardDto {
     private String blackUserName;
     private String whiteUserName;
     private int status;
-    private List<PlacementSequence> placementSequence;
+    private int boardSize;
 
     @Builder
-    public GameBoardDto(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName, int status,
-                        List<PlacementSequence> placementSequence)
+    public GameBoardInitializeDto(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName,
+                                  int status, int boardSize)
     {
         this.blackUserId = blackUserId;
         this.whiteUserId = whiteUserId;
         this.blackUserName = blackUserName;
         this.whiteUserName = whiteUserName;
         this.status = status;
-        this.placementSequence = placementSequence;
+        this.boardSize = boardSize;
     }
 
     public GameBoard toEntity(){
@@ -38,7 +35,7 @@ public class GameBoardDto {
                 .blackUserName(blackUserName)
                 .whiteUserName(whiteUserName)
                 .status(Status.STARTED)
-                .placementSequence(placementSequence)
+                .boardsize(boardSize)
                 .build();
     }
 

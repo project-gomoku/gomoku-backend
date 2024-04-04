@@ -1,9 +1,11 @@
-package com.gomoku.game.repo;
+package com.gomoku.game.service;
 
 import com.gomoku.common.enumeration.Status;
+import com.gomoku.game.dto.GameBoardInitializeDto;
 import com.gomoku.game.repository.GameBoardRepository;
 import com.gomoku.game.repository.entity.GameBoard;
 import com.gomoku.game.repository.entity.PlacementSequence;
+import com.gomoku.game.service.gameservice.initializement.GameInitializeService;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -13,17 +15,16 @@ import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.test.context.junit.jupiter.SpringExtension;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GameBoardRepositoryTest {
+public class InitializeTest {
 
     @Autowired
-    GameBoardRepository gameBoardRepository;
+    private GameBoardRepository gameBoardRepository;
+    @Autowired
+    private GameInitializeService gameInitializeService;
 
     @AfterEach
     public void cleanup(){
@@ -31,38 +32,37 @@ public class GameBoardRepositoryTest {
     }
 
     @Test
-    @DisplayName("게임 보드 초기화 테스트")
+    @DisplayName("게임보드 초기화 테스트")
     @Transactional
-    public void gameBoardInitializeTest(){
+    public void initializeServiceTest(){
         // given
         long blackUserId = 12345;
         long whiteUserId = 67890;
         String blackUserName = "abc";
         String whiteUserName = "def";
         Status status = Status.STARTED;
-        List<PlacementSequence> placementSequence = new ArrayList<>();
+        int boardSize = 15;
 
-        gameBoardRepository.save(GameBoard.builder()
+        // when
+        gameInitializeService.initialize(GameBoardInitializeDto.builder()
                 .blackUserId(blackUserId)
                 .whiteUserId(whiteUserId)
                 .blackUserName(blackUserName)
                 .whiteUserName(whiteUserName)
-                .status(status)
+                .status(status.getStatus())
+                .boardSize(boardSize)
                 .build());
 
-        // when
-        List<GameBoard> boardList = gameBoardRepository.findAll();
-
         // then
-        GameBoard board = boardList.get(0);
-        assertThat(board.getId()).isEqualTo(1);
-        assertThat(board.getBlackUserId()).isEqualTo(12345);
-        assertThat(board.getWhiteUserId()).isEqualTo(67890);
-        assertThat(board.getBlackUserName()).isEqualTo("abc");
-        assertThat(board.getWhiteUserName()).isEqualTo("def");
-        assertThat(board.getStatus()).isEqualTo(1);
-        assertThat(board.getPlacementSequence().size()).isEqualTo(0);
+        GameBoard gameBoard = gameBoardRepository.findById(1L)
+                .orElseThrow();
 
+        assertThat(gameBoard.getId()).isEqualTo(1L);
+        assertThat(gameBoard.getBlackUserId()).isEqualTo(blackUserId);
+        assertThat(gameBoard.getWhiteUserId()).isEqualTo(whiteUserId);
+        assertThat(gameBoard.getBlackUserName()).isEqualTo(blackUserName);
+        assertThat(gameBoard.getWhiteUserName()).isEqualTo(whiteUserName);
+        assertThat(gameBoard.getBoardSize()).isEqualTo(boardSize);
     }
 
 }

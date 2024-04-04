@@ -1,9 +1,12 @@
-package com.gomoku.game.repo;
+package com.gomoku.game.service;
 
 import com.gomoku.common.enumeration.Status;
+import com.gomoku.game.dto.PlacementDto;
 import com.gomoku.game.repository.GameBoardRepository;
 import com.gomoku.game.repository.entity.GameBoard;
 import com.gomoku.game.repository.entity.PlacementSequence;
+import com.gomoku.game.service.gameservice.progress.GameProgressService;
+import com.gomoku.game.service.gameservice.progress.GameProgressServiceImpl;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -20,7 +23,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @ExtendWith(SpringExtension.class)
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
-public class GameBoardRepositoryTest {
+public class PlacementTest {
 
     @Autowired
     GameBoardRepository gameBoardRepository;
@@ -31,9 +34,9 @@ public class GameBoardRepositoryTest {
     }
 
     @Test
-    @DisplayName("게임 보드 초기화 테스트")
+    @DisplayName("착수 업데이트 테스트")
     @Transactional
-    public void gameBoardInitializeTest(){
+    public void placementTest(){
         // given
         long blackUserId = 12345;
         long whiteUserId = 67890;
@@ -51,17 +54,22 @@ public class GameBoardRepositoryTest {
                 .build());
 
         // when
-        List<GameBoard> boardList = gameBoardRepository.findAll();
+        GameProgressService service = new GameProgressServiceImpl(gameBoardRepository);
+        service.place(1,
+                PlacementDto.builder()
+                        .color("black")
+                        .width(1)
+                        .height(1)
+                        .build());
 
         // then
-        GameBoard board = boardList.get(0);
-        assertThat(board.getId()).isEqualTo(1);
-        assertThat(board.getBlackUserId()).isEqualTo(12345);
-        assertThat(board.getWhiteUserId()).isEqualTo(67890);
-        assertThat(board.getBlackUserName()).isEqualTo("abc");
-        assertThat(board.getWhiteUserName()).isEqualTo("def");
-        assertThat(board.getStatus()).isEqualTo(1);
-        assertThat(board.getPlacementSequence().size()).isEqualTo(0);
+        GameBoard gameBoard = gameBoardRepository.findById(1L)
+                .orElseThrow();
+
+        PlacementSequence placement = gameBoard.getPlacementSequence().get(0);
+        assertThat(placement.getStoneColor()).isEqualTo("black");
+        assertThat(placement.getHeight()).isEqualTo(1);
+        assertThat(placement.getWidth()).isEqualTo(1);
 
     }
 

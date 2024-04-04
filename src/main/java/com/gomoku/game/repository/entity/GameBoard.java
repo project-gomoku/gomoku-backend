@@ -7,6 +7,7 @@ import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Getter
@@ -34,20 +35,24 @@ public class GameBoard extends BaseTimeEntity {
     @Column(nullable = false)
     private int status;
 
+    @Column(nullable = false)
+    private int boardSize;
+
     @Column
     @ElementCollection(fetch = FetchType.LAZY)
-    @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID", referencedColumnName = "GAMEBOARD_ID"))
-    private List<PlacementSequence> placementSequence;
+    @CollectionTable(name = "PLACEMENT_SEQUENCE", joinColumns = @JoinColumn(name="GAMEBOARD_ID"))
+    private List<PlacementSequence> placementSequence = new ArrayList<>();
 
     @Builder
-    GameBoard(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName, Status status, List<PlacementSequence> placementSequence)
+    GameBoard(long blackUserId, long whiteUserId, String blackUserName, String whiteUserName, Status status,
+              int boardsize)
     {
         this.blackUserId = blackUserId;
         this.whiteUserId = whiteUserId;
         this.blackUserName = blackUserName;
         this.whiteUserName = whiteUserName;
         this.status = status.getStatus();
-        this.placementSequence = placementSequence;
+        this.boardSize = boardsize;
     }
 
 }
