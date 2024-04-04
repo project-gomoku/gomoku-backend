@@ -14,14 +14,14 @@ public class WebSocketConfig implements WebSocketMessageBrokerConfigurer {
 
     @Override
     public void configureMessageBroker(MessageBrokerRegistry registry){
-        registry.setApplicationDestinationPrefixes("/initialize");
-        registry.enableSimpleBroker("/queue", "/play");
+        registry.setApplicationDestinationPrefixes("/pub");
+        registry.enableSimpleBroker("/sub"); // 구독자들
     }
 
     @Override
     public void registerStompEndpoints(StompEndpointRegistry registry){
-        registry.addEndpoint("/play")
-                .withSockJS();
+        registry.addEndpoint("/play").setAllowedOriginPatterns("*").withSockJS();
+        registry.addEndpoint("/play").setAllowedOriginPatterns("*"); // api 통신 시, withSockJS() 설정을 빼야됨
     }
 
 }
